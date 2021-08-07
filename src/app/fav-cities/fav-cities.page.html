@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Favourite Cities</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item (click)="update()">
+      <ion-icon slot="start" color="success" name="checkmark-circle-outline"></ion-icon>
+      <ion-label>
+        <h2>City</h2>
+        <h3>Temp</h3>
+        <p>Visited</p>
+      </ion-label>
+      <ion-button (click)="removeFromFav()" slot="end" color="danger">DELETE</ion-button>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-icon slot="start" color="danger" name="ellipse-outline"></ion-icon>
+      <ion-label>
+        <h2>City</h2>
+        <h3>Temp</h3>
+        <p>Not Visited</p>
+      </ion-label>
+    </ion-item> -->
+  </ion-list>
+</ion-content>

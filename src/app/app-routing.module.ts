@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'weather',
+    loadChildren: () => import('./weather/weather.module').then( m => m.WeatherPageModule)
+  },
+  {
+    path: 'fav-cities',
+    loadChildren: () => import('./fav-cities/fav-cities.module').then( m => m.FavCitiesPageModule)
+  },
+  {
+    path: 'update-city',
+    loadChildren: () => import('./update-city/update-city.module').then( m => m.UpdateCityPageModule)
+  },
 ];
 
 @NgModule({

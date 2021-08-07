@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Update City Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <ion-label>
+      <h1>City</h1>
+    </ion-label>
+    <ion-list>
+      <ion-radio-group value="true">
+        <ion-list-header>
+          <ion-label>Have you visited this city?</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Yes</ion-label>
+          <ion-radio slot="start" value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio slot="start" value="false"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <br>
+    <ion-button color="success" [routerLink]="['/fav-cities']">SAVE</ion-button>
+    <ion-button color="danger" [routerLink]="['/fav-cities']">CANCEL</ion-button>
+
+  
+    
+  </div>
+</ion-content>

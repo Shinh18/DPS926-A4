@@ -1,7 +1,8 @@
 {
   "name": "asg4",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

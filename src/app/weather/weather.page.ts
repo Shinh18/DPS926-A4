@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WeatherService } from '../service/weather.service';
 import { CityService } from '../service/city.service';
-import { Weather, Main } from '../model';
+import { DbService } from '../service/db.service';
+import { StorageService } from '../service/storage.service';
+import { Weather, Main, City } from '../model';
+import { v4 as uuidv4 } from 'uuid';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-weather',
@@ -13,6 +17,7 @@ export class WeatherPage implements OnInit {
 
   weather: Weather;
   main: Main;
+  city: City;
   m_id: number;
   m_main: string;
   m_description: string;
@@ -25,10 +30,14 @@ export class WeatherPage implements OnInit {
   m_pressure: number;
   m_humidity: number;
   m_imgUrl: string;
+  m_fid: number;
 
   constructor(private activatedRoute: ActivatedRoute, 
+              private router: Router,
               private weatherService: WeatherService,
-              private cityService: CityService) { }
+              private cityService: CityService,
+              private dbService: DbService,
+              private storageService: StorageService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap => { 
@@ -51,5 +60,12 @@ export class WeatherPage implements OnInit {
 
   addToFav(){
     console.log("works");
+    let temp = uuidv4();
+    this.city = new City(this.m_name, this.m_main, false);
+    this.storageService.addFav(temp, this.city);
+    //Add toast for notification
+    this.router.navigate(['/home']);
+    //{string: name, string: weather, boolean: visited}
+   // this.dbService.addFavCity(this.m_name, this.m_main, false);
   }
 }

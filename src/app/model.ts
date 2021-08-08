@@ -28,9 +28,22 @@ export interface Main {
     humidity: number;
 }
 
-export interface FavCity {
-    _id: number;
+export class City{
     name: string;
-    weather: Weather;
+    weather: string;
     visited: boolean;
+    constructor(n: string, w: string, v: boolean){
+        this.name = n;
+        this.weather = w;
+        this.visited = v;
+    }
+}
+export class FavCity {
+    _id: string;
+    city: City
+
+    constructor(id: string, city: City){
+        this._id = id;
+        this.city = city;
+    }
 }

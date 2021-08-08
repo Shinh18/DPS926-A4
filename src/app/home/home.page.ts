@@ -26,11 +26,11 @@ export class HomePage {
   async wrongCity(){
     const alert = await this.alertController.create({
       header: 'Error',
-      message: 'Wrong city entered. Try again.',
+      message: 'City not found. Try again.',
       buttons: [{
         text: 'OK',
         handler: () => {
-          this.cityName=" ";
+          this.clearInput(); 
         }
       }]
     });
@@ -74,7 +74,11 @@ export class HomePage {
     }
   }
 
-  ionViewWillEnter() {
+  clearInput(){
     this.cityName = "";
+  }
+
+  async ionViewWillEnter() {
+    await this.clearInput(); 
   }
 }

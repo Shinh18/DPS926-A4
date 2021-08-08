@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Weather, Main } from '../model';
 import { Observable } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +25,12 @@ export class WeatherService {
   }
   constructor(private httpClient: HttpClient) { }
 
+  //http://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
   getWeatherFromAPI(city: string): Observable<any> {
     return this.httpClient.get<any>('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c8e94627c333e9e40c9deb8db580e69d');
   }
 
   setWeather(w: Weather, m:Main){
-    // console.log("here local " + w.main);
     this.weather.id = w.id;   
     this.weather.icon = w.icon;
     this.weather.description = w.description;
@@ -52,6 +51,3 @@ export class WeatherService {
     return this.main;
   }
 }
-
-//http://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-//http://api.openweathermap.org/data/2.5/weather?q=brampton&appid=c8e94627c333e9e40c9deb8db580e69d

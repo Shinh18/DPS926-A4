@@ -4,18 +4,17 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { WeatherService } from '../service/weather.service';
 import { CityService } from '../service/city.service';
-import { APIResponse, Weather, Main } from '../model';
+import { APIResponse } from '../model';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
 
   apiResponse: APIResponse;
-  //currentWeather: List;
-  // weather: Weather;
   cityName: string;
 
   constructor(private router: Router,
@@ -55,12 +54,10 @@ export class HomePage {
         .subscribe(response => {
           console.log(response);
           this.apiResponse = response;
-
-          console.log(this.apiResponse.weather);
-          form.value.city = form.value.city[0].toUpperCase() + form.value.city.substr(1).toLowerCase();
+          form.value.city = form.value.city[0].toUpperCase() + form.value.city.substr(1).toLowerCase(); //uppercase first letter
           this.cityService.setCity(form.value.city);
           this.weatherService.setWeather(this.apiResponse.weather[0], this.apiResponse.main);
-          console.log("local weather" + this.weatherService.getWeather());
+          //Navigate to Weather Page
           this.router.navigate(['/weather']);
           },
           (err) => {
@@ -69,16 +66,16 @@ export class HomePage {
         );
     }
     else{
-      this.nullCity();
-      
+      this.nullCity();    
     }
   }
 
+  //Clear input text field
   clearInput(){
     this.cityName = "";
   }
 
-  async ionViewWillEnter() {
-    await this.clearInput(); 
+  ionViewWillEnter() {
+    this.clearInput(); 
   }
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { APIResponse, FavCity } from '../model';
+import { FavCity } from '../model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CityService {
 
   private city: string = '';
@@ -13,26 +14,19 @@ export class CityService {
       name: '',
       weather: '',
       visited: false
-    }
-   
+    } 
   }
  
   constructor() { }
 
-  setCity(c: string){
-    this.city = c;
-  }
+  setCity(c: string) { this.city = c; }
 
-  getCity(){
-    return this.city;
-  }
+  getCity() { return this.city; }
 
   setFavCity(f: FavCity){
     this.favCity._id = f._id;
     this.favCity.city = f.city;
   }
 
-  getFavCity(){
-    return this.favCity;
-  }
+  getFavCity() { return this.favCity; }
 }

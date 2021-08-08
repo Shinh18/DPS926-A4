@@ -14,46 +14,50 @@ export class StorageService {
   }
 
   async init() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
     const storage = await this.storage.create();
     this._storage = storage;
   }
 
-  // key is the date of the task
-  //value is the task description
+  //CREATE
+  //key: unique id
+  //value: city(name, weather, visited)
   public addFav(key: string, value: any) {
     var newFav = new FavCity(key, value);
     this._storage?.set(key, newFav);
-    this.logAllFavCities();
+    this.logAllFavs();
   }
 
-  private logAllFavCities(){
-    console.log("All Cities : ");
-    this._storage.forEach((key, value, index) => {
-      console.log(key, value, index);
-    });
+  //UPDATE
+  async update(fc: FavCity) {
+    return await this.storage.set(fc._id, fc);
   }
 
-  public getAllFavCities(){
-    var alltasks: FavCity[] = [];
-    if (this._storage != null){
-    this._storage.forEach((value, key, index) => {
-      alltasks.push(value as FavCity);
-    });
-  }
-    return alltasks;
-  }
-
-  public async deleteAllFavCities(){
-    await this._storage.clear();
-    this.logAllFavCities();
-  }
-
-  public async deleteOneFavCity(fc: FavCity){
+  //DELETE
+  public async deleteFav(fc: FavCity) {
     await this._storage.remove(fc._id);
   }
 
-  public async update(fc: FavCity){
-    return await this.storage.set(fc._id, fc);
+  //GET ALL
+  public getAllFavs() {
+    var allFavs: FavCity[] = [];
+    if (this._storage != null) {
+      this._storage.forEach((value, key, index) => {
+        allFavs.push(value as FavCity);
+    });
+  }
+    return allFavs;
+  }
+
+  //DELETE ALL
+  public async deleteAllFavs() {
+    await this._storage.clear();
+    this.logAllFavs();
+  }
+
+  //LOG ALL
+  private logAllFavs() {
+    this._storage.forEach((key, value, index) => {
+      console.log(key, value, index);
+    });
   }
 }

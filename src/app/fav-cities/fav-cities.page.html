@@ -35,21 +35,21 @@
       <ion-label>
         <h2>{{fav.city.name}}</h2>
         <p>{{fav.city.weather}}</p>
-        <p>{{fav.city.Visited}}</p>
+        <p >{{fav.city.Visited}}</p>
       </ion-label>
-      <ion-note slot="end">
-        10:45 AM
+      <ion-note *ngIf="fav.city.visited"slot="end" color="success">
+        Visited
+      </ion-note>
+      <ion-note *ngIf="!fav.city.visited"slot="end" color="danger">
+        Not Visited
       </ion-note>
     </ion-item>
-
-
-
     <ion-item-options side="end">
       <ion-item-option (click)="update()">
         <ion-icon slot="icon-only" name="refresh"></ion-icon>
  
     </ion-item-option>
-      <ion-item-option (click)="removeFromFav(city)"  color="danger">
+      <ion-item-option (click)="deleteFav(fav)"  color="danger">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-item-option>
     </ion-item-options>

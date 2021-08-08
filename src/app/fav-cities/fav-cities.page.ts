@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DbService } from '../service/db.service';
 import { CityService } from '../service/city.service';
 import { StorageService } from '../service/storage.service';
 import { FavCity } from '../model';
@@ -19,7 +18,6 @@ export class FavCitiesPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private alertController: AlertController,
               private router: Router,
-              private dbService: DbService,
               private cityService: CityService,
               private storageService: StorageService) 
   { 
@@ -28,94 +26,63 @@ export class FavCitiesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.favs = this.storageService.getAllFavCities();
-    //this.cityService.setFavCity();
-    // this.fav = this.cityService.getFavCity();
-    // this.fav._id = 1;
-    // this.fav.name = 'test';
-    // this.fav.visited = true;
-    // this.fav.weather = 'cloud';
-    // this.favList.push(this.fav);
-    //this.dbService.getFavCities();
-    // this.activatedRoute.paramMap.subscribe(paramMap => { 
-
-    //   //get all cities from table
-    //   console.log("enter page")
-    //   this.dbService.().then((res) => {
-    //     this.favList = res;
-    //     console.log(res);
-    //   })
-
-    // })
+    this.favs = this.storageService.getAllFavs();
   }
 
   ionViewWillEnter(){
-    this.favs = this.storageService.getAllFavCities();
+    this.favs = this.storageService.getAllFavs();
   }
 
-
-  // ionViewDidEnter() {  
-  //  // this.dbService.getAll();
-  // }
-   
-
-  update(){
-    console.log("update");
+  updateFav(fc: FavCity){
+    //Navigate to Update Page
     this.router.navigate(['update-city']);
   }
 
-  async removeFromFav(city: FavCity){
-    const alert = await this.alertController.create({
-      header: 'Delete',
-      message: 'Are you sure you want to remove this city?',
-      buttons: [{
-        text: 'Ok',
-        handler: () => {
-         // this.dbService.delete(city._id);
-          // this.orderService.removeItem(pz);
-          console.log("yes");
-        }
-      }, 'Cancel']
-    });
-    await alert.present();
-  }
+  // async deleteFav(fc: FavCity){
+  //   const alert = await this.alertController.create({
+  //     header: 'Delete',
+  //     message: 'Are you sure you want to remove this city?',
+  //     buttons: [{
+  //       text: 'Ok',
+  //       handler: () => {
+  //         this.storageService.deleteFav(fc);
+  //         console.log("yes");
+  //       }
+  //     }, 'Cancel']
+  //   });
+  //   await alert.present();
+  // }
 
-
-  deleteAll(){
-
+  deleteAllFavs(){
     this.alertController.create({
-      header: 'Danger!!!',
-      message : 'Are sure you want to delete ALL TASKS?? ',
+      header: 'Confirm',
+      message : 'Are sure you want to delete All Cities? ',
       buttons: [{
-        text :'delete',
+        text :'Delete',
         handler : ()=>{
-          this.storageService.deleteAllFavCities();
-          this.favs = this.storageService.getAllFavCities();
+          this.storageService.deleteAllFavs();
+          this.favs = this.storageService.getAllFavs();
         }
       },'Cancel']
-
     }).then(alert => {
       alert.present();
     })
   }
 
-  deleteTask(taskToDelete: FavCity){
+  deleteFav(fc: FavCity){
 
     this.alertController.create({
-      header: 'Danger!!!',
-      message : 'Are sure you want to delete?? ',
+      header: 'Confirm',
+      message : 'Are sure you want to remove ' + fc.city.name + ' from favourites?',
       buttons: [{
-        text :'delete',
+        text :'Delete',
         handler : ()=>{
-          this.storageService.deleteOneFavCity(taskToDelete);
-          this.favs = this.storageService.getAllFavCities();
+          this.storageService.deleteFav(fc);
+          this.favs = this.storageService.getAllFavs();
         }
       },'Cancel']
-
     }).then(alert => {
       alert.present();
     })
-
   }
-
 }

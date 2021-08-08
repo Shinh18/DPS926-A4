@@ -1,12 +1,3 @@
-// export interface APIResponse{
-//     list: List[];
-// }
-
-// export interface List{
-//     main: Main;
-//     weather: Weather[];
-// }
-
 export interface APIResponse {
     main: Main;
     weather: Weather[];
@@ -28,7 +19,7 @@ export interface Main {
     humidity: number;
 }
 
-export class City{
+export class City {
     name: string;
     weather: string;
     visited: boolean;
@@ -38,6 +29,7 @@ export class City{
         this.visited = v;
     }
 }
+
 export class FavCity {
     _id: string;
     city: City

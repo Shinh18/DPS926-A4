@@ -27,9 +27,40 @@ export class StorageService {
     this.logAllFavs();
   }
 
+  //GET
+  public getFav(_id: string) {
+    // return await this.storage.get(_id);
+    var allFavs: FavCity[] = [];
+    console.log("IDDDD " + _id);
+    if (this._storage != null) {
+      this._storage.forEach((value, key, index) => {
+       // console.log("KEY " + key);
+        if(key.localeCompare(_id) === 0) {
+          allFavs.push(value as FavCity);
+        }  
+    });
+    }
+    console.log("ALL FAVS " + allFavs.length );
+    return allFavs;
+    // var temp: FavCity[] = [];
+    // await this.storage.forEach((value, key, index)=>{
+    //   if(key.localeCompare(_id) === 0){
+    //       temp.push(value as FavCity);
+    //   }
+    // });
+    // return temp;
+  }
+
   //UPDATE
-  async update(fc: FavCity) {
-    return await this.storage.set(fc._id, fc);
+  public async updateFav(fc: FavCity) {
+    // let allFavs = this.getAllFavs();
+    // for(let fav of allFavs) {
+    //   if(fav._id === fc._id) {
+    //     console.log("BAKCEND CITY " + fav.city.name);
+    //     fav.city.visited = fc.city.visited;
+    //   }
+    // }
+   return await this.storage.set(fc._id, fc);
   }
 
   //DELETE
@@ -44,7 +75,7 @@ export class StorageService {
       this._storage.forEach((value, key, index) => {
         allFavs.push(value as FavCity);
     });
-  }
+    }
     return allFavs;
   }
 

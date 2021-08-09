@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { WeatherService } from '../service/weather.service';
 import { CityService } from '../service/city.service';
 import { StorageService } from '../service/storage.service';
@@ -33,6 +34,7 @@ export class WeatherPage implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, 
               private router: Router,
+              private toastController: ToastController,
               private weatherService: WeatherService,
               private cityService: CityService,
               private storageService: StorageService) { }
@@ -58,15 +60,25 @@ export class WeatherPage implements OnInit {
     })
   }
 
-  addFav() {
+  async addFav() {
 
     let uID = uuidv4();  //unique id for each favourite city
     this.city = new City(this.m_name, this.m_description, false);
     this.storageService.addFav(uID, this.city);
     
     //Toast for Notification
-
+    await this.presentToast();
     //Navigate to Home Page
     this.router.navigate(['/home']);
+  }
+
+  async presentToast(){
+    const toast = await this.toastController.create({
+      color: 'dark',
+      duration: 300,
+      message: this.m_name + ' added as your favourite',
+      keyboardClose: true
+    });
+    await toast.present();
   }
 }

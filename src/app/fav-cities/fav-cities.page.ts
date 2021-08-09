@@ -14,6 +14,7 @@ export class FavCitiesPage implements OnInit {
 
   favs: FavCity[];
   fav: FavCity;
+  m_isEmpty: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private alertController: AlertController,
@@ -21,36 +22,28 @@ export class FavCitiesPage implements OnInit {
               private cityService: CityService,
               private storageService: StorageService) 
   { 
-    //this.dbService.databaseConn();
-    
+    this.m_isEmpty == true;
   }
 
   ngOnInit() {
     this.favs = this.storageService.getAllFavs();
+    if(this.favs.length > 0) {
+      this.m_isEmpty == false;
+    }
+    //console.log("Init" + this.favs);
   }
 
   ionViewWillEnter(){
     this.favs = this.storageService.getAllFavs();
+    if(this.favs.length > 0) {
+      this.m_isEmpty == false;
+    }
+    //console.log("ION" + this.favs);
   }
 
-  updateFav(fc: FavCity){
-    //Navigate to Update Page
-    this.router.navigate(['update-city']);
-  }
-
-  // async deleteFav(fc: FavCity){
-  //   const alert = await this.alertController.create({
-  //     header: 'Delete',
-  //     message: 'Are you sure you want to remove this city?',
-  //     buttons: [{
-  //       text: 'Ok',
-  //       handler: () => {
-  //         this.storageService.deleteFav(fc);
-  //         console.log("yes");
-  //       }
-  //     }, 'Cancel']
-  //   });
-  //   await alert.present();
+  // updateFav(fc: FavCity){
+  //   //Navigate to Update Page
+  //   this.router.navigate(['update-city']);
   // }
 
   deleteAllFavs(){
@@ -67,6 +60,7 @@ export class FavCitiesPage implements OnInit {
     }).then(alert => {
       alert.present();
     })
+    this.m_isEmpty == true;
   }
 
   deleteFav(fc: FavCity){

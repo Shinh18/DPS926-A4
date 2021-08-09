@@ -22,14 +22,15 @@ export class HomePage {
               private weatherService: WeatherService,
               private cityService: CityService) {}
 
-  async wrongCity(){
+  async wrongCity(form: NgForm){
     const alert = await this.alertController.create({
       header: 'Error',
       message: 'City not found. Try again.',
       buttons: [{
         text: 'OK',
         handler: () => {
-          this.clearInput(); 
+          //this.clearInput(); 
+          form.resetForm();
         }
       }]
     });
@@ -57,25 +58,17 @@ export class HomePage {
           form.value.city = form.value.city[0].toUpperCase() + form.value.city.substr(1).toLowerCase(); //uppercase first letter
           this.cityService.setCity(form.value.city);
           this.weatherService.setWeather(this.apiResponse.weather[0], this.apiResponse.main);
+          form.resetForm();
           //Navigate to Weather Page
           this.router.navigate(['/weather']);
           },
           (err) => {
-            this.wrongCity()
+            this.wrongCity(form)
           }
         );
     }
     else{
       this.nullCity();    
     }
-  }
-
-  //Clear input text field
-  clearInput(){
-    this.cityName = "";
-  }
-
-  ionViewWillEnter() {
-    this.clearInput(); 
-  }
+  }  
 }

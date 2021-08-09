@@ -24,7 +24,7 @@ export class StorageService {
   public addFav(key: string, value: any) {
     var newFav = new FavCity(key, value);
     this._storage?.set(key, newFav);
-    this.logAllFavs();
+    //this.logAllFavs();
   }
 
   //GET
@@ -34,32 +34,16 @@ export class StorageService {
     console.log("IDDDD " + _id);
     if (this._storage != null) {
       this._storage.forEach((value, key, index) => {
-       // console.log("KEY " + key);
         if(key.localeCompare(_id) === 0) {
           allFavs.push(value as FavCity);
         }  
     });
     }
-    console.log("ALL FAVS " + allFavs.length );
     return allFavs;
-    // var temp: FavCity[] = [];
-    // await this.storage.forEach((value, key, index)=>{
-    //   if(key.localeCompare(_id) === 0){
-    //       temp.push(value as FavCity);
-    //   }
-    // });
-    // return temp;
   }
 
   //UPDATE
   public async updateFav(fc: FavCity) {
-    // let allFavs = this.getAllFavs();
-    // for(let fav of allFavs) {
-    //   if(fav._id === fc._id) {
-    //     console.log("BAKCEND CITY " + fav.city.name);
-    //     fav.city.visited = fc.city.visited;
-    //   }
-    // }
    return await this.storage.set(fc._id, fc);
   }
 
@@ -82,7 +66,7 @@ export class StorageService {
   //DELETE ALL
   public async deleteAllFavs() {
     await this._storage.clear();
-    this.logAllFavs();
+    //this.logAllFavs();
   }
 
   //LOG ALL

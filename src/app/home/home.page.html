@@ -19,7 +19,7 @@
         <ion-col>
           <ion-item>
           <ion-label position="floating">City</ion-label>
-              <ion-input type="text" [value]="cityName" name="city" required ngModel placeholder="Enter City"></ion-input>
+              <ion-input type="text" #city="ngModel" name="city" required ngModel placeholder="Enter City"></ion-input>
             </ion-item>
         </ion-col>
       </ion-row>

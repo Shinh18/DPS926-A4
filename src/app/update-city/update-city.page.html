@@ -14,28 +14,13 @@
         <h1>{{loadedCity[0].city.name}}</h1>
         <p>Have you visited this city?</p>
       </ion-label>
-      <!-- <ion-list>
-        <ion-radio-group >
-          <ion-item >
-            <ion-label>Yes</ion-label>
-            <ion-radio ngModel slot="start" value="true" name="yes" [value]="visitName"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>No</ion-label>
-            <ion-radio ngModel slot="start" value="false" name="no" [value]="visitName"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-list> -->
       <ion-select ngModel name="visit" (ionChange)="selectVisit($event)" placeholder="Select One">
         <ion-select-option value="yes">Yes</ion-select-option>
         <ion-select-option value="no">No</ion-select-option>
       </ion-select>
-      <!-- <br> -->
       <ion-button color="success" (click)="updateFav()" >SAVE</ion-button>
       <ion-button color="danger" [routerLink]="['/fav-cities']">CANCEL</ion-button>
     </form>
-  
-    
   </div>
 </ion-content>
 

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CityService } from '../service/city.service';
 import { StorageService } from '../service/storage.service';
 import { FavCity } from '../model';
 
@@ -14,37 +12,25 @@ export class FavCitiesPage implements OnInit {
 
   favs: FavCity[];
   fav: FavCity;
-  m_isEmpty: boolean;
+  m_isEmpty: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private alertController: AlertController,
-              private router: Router,
-              private cityService: CityService,
+  constructor(private alertController: AlertController,
               private storageService: StorageService) 
-  { 
-    this.m_isEmpty == true;
-  }
+  { }
 
   ngOnInit() {
     this.favs = this.storageService.getAllFavs();
-    if(this.favs.length > 0) {
-      this.m_isEmpty == false;
+    if(this.favs.length == 0) {
+      this.m_isEmpty == true;
     }
-    //console.log("Init" + this.favs);
   }
 
   ionViewWillEnter(){
     this.favs = this.storageService.getAllFavs();
-    if(this.favs.length > 0) {
-      this.m_isEmpty == false;
+    if(this.favs.length == 0) {
+      this.m_isEmpty == true;
     }
-    //console.log("ION" + this.favs);
   }
-
-  // updateFav(fc: FavCity){
-  //   //Navigate to Update Page
-  //   this.router.navigate(['update-city']);
-  // }
 
   deleteAllFavs(){
     this.alertController.create({
@@ -64,7 +50,6 @@ export class FavCitiesPage implements OnInit {
   }
 
   deleteFav(fc: FavCity){
-
     this.alertController.create({
       header: 'Confirm',
       message : 'Are sure you want to remove ' + fc.city.name + ' from favourites?',

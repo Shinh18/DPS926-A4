@@ -18,6 +18,7 @@ export class WeatherPage implements OnInit {
   weather: Weather;
   main: Main;
   city: City;
+
   //local variables
   m_id: number;
   m_main: string;
@@ -41,11 +42,10 @@ export class WeatherPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap => { 
-      
+
       this.weather = this.weatherService.getWeather();
       this.main = this.weatherService.getMain();
       this.m_name = this.cityService.getCity();
-
       this.m_id = this.weather.id;
       this.m_main = this.weather.main;
       this.m_description = this.weather.description;
@@ -61,13 +61,13 @@ export class WeatherPage implements OnInit {
   }
 
   async addFav() {
-
     let uID = uuidv4();  //unique id for each favourite city
     this.city = new City(this.m_name, this.m_description, false);
     this.storageService.addFav(uID, this.city);
     
-    //Toast for Notification
+    //Show Notification Toaste
     await this.presentToast();
+
     //Navigate to Home Page
     this.router.navigate(['/home']);
   }
